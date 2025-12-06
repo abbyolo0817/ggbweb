@@ -5,183 +5,86 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GGB互動教學 | 翰林國小數學</title>
     
-    <!-- 1. 引入 Tailwind CSS (樣式庫) -->
+    <!-- 引入 Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- 2. 引入 Google Fonts (Zen Maru Gothic) -->
+    <!-- 引入 Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap" rel="stylesheet">
     
-    <!-- 3. 引入 Lucide Icons (圖示庫) -->
+    <!-- 引入 Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- 設定全域樣式 -->
     <style>
-        body {
-            font-family: 'Zen Maru Gothic', sans-serif;
-            font-weight: 700; /* 粗體 */
-        }
-        
-        /* 隱藏捲軸但保留功能 */
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        /* 動畫效果 */
-        @keyframes fade-in {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        .animate-fade-in {
-            animation: fade-in 0.2s ease-out forwards;
-        }
-
-        @keyframes scale-in {
-            from { transform: scale(0.95); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-        .animate-scale-in {
-            animation: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        /* 讀取中旋轉動畫 */
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .animate-spin {
-            animation: spin 1s linear infinite;
-        }
+        body { font-family: 'Zen Maru Gothic', sans-serif; font-weight: 700; }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        @keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+        .animate-fade-in { animation: fade-in 0.2s ease-out forwards; }
+        @keyframes scale-in { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .animate-scale-in { animation: scale-in 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
     </style>
 </head>
 <body class="bg-white text-gray-900 flex flex-col min-h-screen">
 
-    <!-- ================= HEADER 區塊 ================= -->
-    <!-- 移除 overflow-hidden，讓底部的尖角可以突出來 -->
+    <!-- HEADER 區塊 -->
     <header class="bg-yellow-400 border-b-4 border-black relative z-30">
-        
-        <!-- 背景裝飾容器 (加上 overflow-hidden，確保漂浮符號不會跑出去) -->
         <div class="absolute inset-0 pointer-events-none overflow-hidden">
-            <!-- 方格紙背景 -->
-            <div class="absolute inset-0 opacity-20" 
-                 style="background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px); background-size: 40px 40px;">
-            </div>
-
-            <!-- 漂浮的數學符號 -->
+            <div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px); background-size: 40px 40px;"></div>
+            <!-- 漂浮符號 -->
             <div class="absolute top-10 left-[5%] text-5xl font-black opacity-20 rotate-12 text-black select-none">+</div>
             <div class="absolute bottom-12 left-[12%] text-6xl font-black opacity-20 -rotate-12 text-black select-none">8</div>
             <div class="absolute top-20 right-[8%] text-5xl font-black opacity-20 rotate-12 text-black select-none">÷</div>
             <div class="absolute bottom-20 right-[15%] text-4xl font-black opacity-20 text-black select-none">3</div>
             <div class="absolute top-8 left-[35%] text-4xl font-black opacity-10 -rotate-6 text-black select-none">×</div>
             <div class="absolute top-12 right-[35%] text-5xl font-black opacity-10 rotate-6 text-black select-none">-</div>
-            <div class="absolute top-40 left-[25%] text-3xl font-black opacity-15 rotate-45 text-black select-none">√2</div>
-            <div class="absolute bottom-32 left-[40%] text-4xl font-black opacity-15 -rotate-12 text-black select-none">π</div>
-            <div class="absolute top-24 right-[28%] text-3xl font-black opacity-15 rotate-90 text-black select-none">∞</div>
-            <div class="absolute bottom-10 right-[40%] text-4xl font-black opacity-15 text-black select-none">%</div>
-            <div class="absolute top-5 left-[50%] text-3xl font-black opacity-10 rotate-12 text-black select-none">1/2</div>
-            <div class="absolute bottom-40 left-[5%] text-5xl font-black opacity-10 -rotate-45 text-black select-none">=</div>
-            <div class="absolute top-32 right-[2%] text-4xl font-black opacity-10 rotate-12 text-black select-none">9</div>
-            <div class="absolute bottom-5 left-[60%] text-3xl font-black opacity-10 text-black select-none">∠A</div>
-
-            <!-- 兩側裝飾方塊 (SVG) -->
+            <!-- 裝飾方塊 SVG -->
             <div class="hidden lg:block absolute left-4 bottom-12 w-48 h-48 opacity-100 transform -translate-x-4 z-0">
-                <svg viewBox="0 0 200 200" fill="none" stroke="black" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
-                    <path d="M50 125 L100 150 L150 125 L100 100 Z" fill="#93C5FD"></path>
-                    <path d="M50 125 L100 150 L100 190 L50 165 Z" fill="#3B82F6"></path>
-                    <path d="M100 150 L150 125 L150 165 L100 190 Z" fill="#1D4ED8"></path>
-                    <path d="M25 85 L75 110 L125 85 L75 60 Z" fill="white"></path>
-                    <path d="M25 85 L75 110 L75 150 L25 125 Z" fill="#E5E7EB"></path>
-                    <path d="M75 110 L125 85 L125 125 L75 150 Z" fill="#9CA3AF"></path>
-                    <path d="M100 75 L150 100 L200 75 L150 50 Z" fill="#BFDBFE"></path>
-                    <path d="M100 75 L150 100 L150 140 L100 115 Z" fill="#60A5FA"></path>
-                    <path d="M150 100 L200 75 L200 115 L150 140 Z" fill="#2563EB"></path>
-                    <path d="M75 35 L125 60 L175 35 L125 10 Z" fill="white"></path>
-                    <path d="M75 35 L125 60 L125 100 L75 75 Z" fill="#E5E7EB"></path>
-                    <path d="M125 60 L175 35 L175 75 L125 100 Z" fill="#9CA3AF"></path>
-                </svg>
+                <svg viewBox="0 0 200 200" fill="none" stroke="black" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M50 125 L100 150 L150 125 L100 100 Z" fill="#93C5FD"></path><path d="M50 125 L100 150 L100 190 L50 165 Z" fill="#3B82F6"></path><path d="M100 150 L150 125 L150 165 L100 190 Z" fill="#1D4ED8"></path><path d="M25 85 L75 110 L125 85 L75 60 Z" fill="white"></path><path d="M25 85 L75 110 L75 150 L25 125 Z" fill="#E5E7EB"></path><path d="M75 110 L125 85 L125 125 L75 150 Z" fill="#9CA3AF"></path><path d="M100 75 L150 100 L200 75 L150 50 Z" fill="#BFDBFE"></path><path d="M100 75 L150 100 L150 140 L100 115 Z" fill="#60A5FA"></path><path d="M150 100 L200 75 L200 115 L150 140 Z" fill="#2563EB"></path><path d="M75 35 L125 60 L175 35 L125 10 Z" fill="white"></path><path d="M75 35 L125 60 L125 100 L75 75 Z" fill="#E5E7EB"></path><path d="M125 60 L175 35 L175 75 L125 100 Z" fill="#9CA3AF"></path></svg>
             </div>
             <div class="hidden lg:block absolute right-10 top-4 w-48 h-48 opacity-100 transform translate-x-10 -translate-y-4 scale-x-[-1] z-0">
-                <svg viewBox="0 0 200 200" fill="none" stroke="black" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
-                    <path d="M50 125 L100 150 L150 125 L100 100 Z" fill="#93C5FD"></path>
-                    <path d="M50 125 L100 150 L100 190 L50 165 Z" fill="#3B82F6"></path>
-                    <path d="M100 150 L150 125 L150 165 L100 190 Z" fill="#1D4ED8"></path>
-                    <path d="M25 85 L75 110 L125 85 L75 60 Z" fill="white"></path>
-                    <path d="M25 85 L75 110 L75 150 L25 125 Z" fill="#E5E7EB"></path>
-                    <path d="M75 110 L125 85 L125 125 L75 150 Z" fill="#9CA3AF"></path>
-                    <path d="M100 75 L150 100 L200 75 L150 50 Z" fill="#BFDBFE"></path>
-                    <path d="M100 75 L150 100 L150 140 L100 115 Z" fill="#60A5FA"></path>
-                    <path d="M150 100 L200 75 L200 115 L150 140 Z" fill="#2563EB"></path>
-                    <path d="M75 35 L125 60 L175 35 L125 10 Z" fill="white"></path>
-                    <path d="M75 35 L125 60 L125 100 L75 75 Z" fill="#E5E7EB"></path>
-                    <path d="M125 60 L175 35 L175 75 L125 100 Z" fill="#9CA3AF"></path>
-                </svg>
+                <svg viewBox="0 0 200 200" fill="none" stroke="black" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><path d="M50 125 L100 150 L150 125 L100 100 Z" fill="#93C5FD"></path><path d="M50 125 L100 150 L100 190 L50 165 Z" fill="#3B82F6"></path><path d="M100 150 L150 125 L150 165 L100 190 Z" fill="#1D4ED8"></path><path d="M25 85 L75 110 L125 85 L75 60 Z" fill="white"></path><path d="M25 85 L75 110 L75 150 L25 125 Z" fill="#E5E7EB"></path><path d="M75 110 L125 85 L125 125 L75 150 Z" fill="#9CA3AF"></path><path d="M100 75 L150 100 L200 75 L150 50 Z" fill="#BFDBFE"></path><path d="M100 75 L150 100 L150 140 L100 115 Z" fill="#60A5FA"></path><path d="M150 100 L200 75 L200 115 L150 140 Z" fill="#2563EB"></path><path d="M75 35 L125 60 L175 35 L125 10 Z" fill="white"></path><path d="M75 35 L125 60 L125 100 L75 75 Z" fill="#E5E7EB"></path><path d="M125 60 L175 35 L175 75 L125 100 Z" fill="#9CA3AF"></path></svg>
             </div>
         </div>
 
-        <!-- 主標題區塊 -->
         <div class="max-w-4xl mx-auto py-6 px-4 text-center relative z-10">
             <div class="inline-block relative px-10 py-6">
-                <!-- 手繪風框框背景 (SVG) -->
-                <svg viewBox="0 0 400 120" preserveAspectRatio="none" class="absolute inset-0 w-full h-full text-white drop-shadow-[4px_4px_0_rgba(0,0,0,1)]" style="overflow: visible;">
-                    <path d="M5,10 Q200,2 395,10 Q398,60 395,110 Q200,118 5,110 Q2,60 5,10 Z" fill="white" stroke="black" stroke-width="4" stroke-linejoin="round"></path>
-                </svg>
-                
+                <!-- 手繪風框框背景 -->
+                <svg viewBox="0 0 400 120" preserveAspectRatio="none" class="absolute inset-0 w-full h-full text-white drop-shadow-[4px_4px_0_rgba(0,0,0,1)]" style="overflow: visible;"><path d="M5,10 Q200,2 395,10 Q398,60 395,110 Q200,118 5,110 Q2,60 5,10 Z" fill="white" stroke="black" stroke-width="4" stroke-linejoin="round"></path></svg>
                 <div class="relative flex items-center justify-center gap-4">
-                    <!-- 彩色幾何圖示 (SVG) -->
-                    <svg viewBox="0 0 100 100" class="w-12 h-12 md:w-16 md:h-16 flex-shrink-0" fill="none" stroke="black" stroke-width="4" stroke-linejoin="round" stroke-linecap="round">
-                        <circle cx="30" cy="30" r="20" fill="#F87171"></circle>
-                        <rect x="45" y="45" width="40" height="40" fill="#60A5FA" transform="rotate(10 65 65)"></rect>
-                        <path d="M20 90 L50 90 L35 60 Z" fill="#4ADE80"></path>
-                    </svg>
-                    
-                    <h1 class="text-5xl md:text-7xl font-black text-black tracking-tight">
-                        GGB互動教學
-                    </h1>
+                    <!-- 彩色幾何圖示 -->
+                    <svg viewBox="0 0 100 100" class="w-12 h-12 md:w-16 md:h-16 flex-shrink-0" fill="none" stroke="black" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"><circle cx="30" cy="30" r="20" fill="#F87171"></circle><rect x="45" y="45" width="40" height="40" fill="#60A5FA" transform="rotate(10 65 65)"></rect><path d="M20 90 L50 90 L35 60 Z" fill="#4ADE80"></path></svg>
+                    <h1 class="text-5xl md:text-7xl font-black text-black tracking-tight">GGB互動教學</h1>
                 </div>
             </div>
-
             <div class="mt-4 flex justify-center items-center gap-2">
                 <div class="h-[2px] w-12 bg-black"></div>
-                <p class="text-black font-black text-xl md:text-2xl tracking-widest bg-yellow-400 px-4">
-                    翰林國小數學
-                </p>
+                <p class="text-black font-black text-xl md:text-2xl tracking-widest bg-yellow-400 px-4">翰林國小數學</p>
                 <div class="h-[2px] w-12 bg-black"></div>
             </div>
         </div>
-
-        <!-- 底部尖角 (Speech Bubble Tail) -->
+        <!-- 底部尖角 -->
         <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-yellow-400 border-b-4 border-r-4 border-black rotate-45 z-20"></div>
     </header>
 
-    <!-- ================= 導覽與搜尋 ================= -->
+    <!-- 導覽與搜尋 -->
     <nav class="py-8 bg-white relative border-b-2 border-gray-100 z-20">
         <div class="max-w-7xl mx-auto px-4">
             <div class="flex flex-col lg:flex-row items-center justify-between gap-6">
-                
                 <!-- 左側：年級選單 -->
-                <div class="flex flex-col md:flex-row items-center gap-4 flex-grow justify-center lg:justify-start">
+                <div class="flex flex-col md:flex-row items-center gap-4 flex-grow justify-center lg:justify-start w-full">
                     <span class="text-gray-400 text-sm font-bold whitespace-nowrap">請選擇年級</span>
-                    <div id="grade-buttons" class="flex flex-wrap justify-center gap-2">
-                        <!-- 年級按鈕將由 JavaScript 動態生成 -->
-                    </div>
+                    <div id="grade-buttons" class="flex flex-wrap justify-center gap-2"></div>
                 </div>
-
                 <!-- 右側：搜尋框 -->
                 <div class="w-full max-w-xs relative group">
                     <div class="absolute inset-0 bg-black rounded-full translate-x-1 translate-y-1 group-focus-within:translate-x-1.5 group-focus-within:translate-y-1.5 transition-transform"></div>
-                    <input type="text" id="search-input" placeholder="搜尋..." 
-                           class="relative w-full pl-10 pr-4 py-2 bg-white border-2 border-black rounded-full font-bold text-base focus:outline-none transition-all">
+                    <input type="text" id="search-input" placeholder="搜尋..." class="relative w-full pl-10 pr-4 py-2 bg-white border-2 border-black rounded-full font-bold text-base focus:outline-none transition-all">
                     <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-black z-10"></i>
-                    <button id="clear-search" class="absolute right-3 top-1/2 transform -translate-y-1/2 p-0.5 hover:bg-gray-100 rounded-full z-10 hidden">
-                        <i data-lucide="x" class="w-4 h-4 text-gray-500"></i>
-                    </button>
+                    <button id="clear-search" class="absolute right-3 top-1/2 transform -translate-y-1/2 p-0.5 hover:bg-gray-100 rounded-full z-10 hidden"><i data-lucide="x" class="w-4 h-4 text-gray-500"></i></button>
                 </div>
             </div>
-
             <!-- 搜尋結果提示 -->
             <div id="search-result-hint" class="text-center mt-6 hidden animate-fade-in">
                 <p class="text-gray-500 font-bold bg-gray-100 inline-block px-4 py-1 rounded-full text-sm">
@@ -191,85 +94,54 @@
         </div>
     </nav>
 
-    <!-- ================= 主要內容區 ================= -->
+    <!-- 主要內容區 -->
     <main class="flex-grow px-4 max-w-6xl mx-auto pb-24 w-full pt-8 z-10 min-h-[50vh]">
-        
-        <!-- 載入中動畫 -->
-        <div id="loading-spinner" class="flex flex-col items-center justify-center py-20 text-gray-400 hidden">
-            <i data-lucide="loader-2" class="w-12 h-12 animate-spin mb-4 text-yellow-400"></i>
-            <p class="text-xl">正在讀取資料...</p>
-        </div>
-
-        <!-- 資源卡片列表容器 -->
-        <div id="resources-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- 卡片將由 JavaScript 動態生成 -->
-        </div>
-
-        <!-- 無資料提示 -->
+        <div id="resources-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         <div id="no-data-hint" class="text-center py-20 border-2 border-dashed border-black rounded-xl bg-gray-50 hidden">
             <p class="text-xl font-bold text-gray-500" id="no-data-text">目前沒有相關資源</p>
             <p class="text-md text-gray-400 mt-2">請確認 Google Sheet 資料或嘗試其他年級</p>
         </div>
     </main>
 
-    <!-- ================= 頁尾 ================= -->
+    <!-- 頁尾 -->
     <footer class="bg-yellow-400 border-t-2 border-black py-8 text-center relative z-10">
-        <p class="text-black font-bold">
-            &copy; <span id="current-year"></span> GGB互動教學資源網. All rights reserved.
-        </p>
+        <p class="text-black font-bold">&copy; <span id="current-year"></span> GGB互動教學資源網. All rights reserved.</p>
     </footer>
 
-    <!-- ================= 回到頂端按鈕 ================= -->
-    <button id="scroll-to-top" 
-            class="fixed bottom-8 right-8 bg-yellow-400 border-2 border-black p-3 rounded-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all z-40 hidden">
+    <!-- 回到頂端 -->
+    <button id="scroll-to-top" class="fixed bottom-8 right-8 bg-yellow-400 border-2 border-black p-3 rounded-full shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-y-[-2px] hover:translate-x-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all z-40 hidden">
         <i data-lucide="arrow-up" class="w-8 h-8 text-black stroke-[3]"></i>
     </button>
 
-    <!-- ================= 彈出視窗 (Modal) ================= -->
+    <!-- Modal (彈出視窗 - 已修復 RWD 超出問題) -->
+    <!-- 關鍵修正：max-h-[90vh] 限制最大高度，overflow-y-auto 允許內容滾動 -->
     <div id="modal-overlay" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm hidden animate-fade-in" onclick="closeModal()">
-        <div id="modal-content" class="bg-white w-full max-w-4xl rounded-xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(255,255,255,0.2)] relative overflow-hidden flex flex-col md:flex-row items-stretch animate-scale-in" onclick="event.stopPropagation()">
+        <div id="modal-content" class="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-xl border-4 border-black shadow-[8px_8px_0px_0px_rgba(255,255,255,0.2)] relative flex flex-col md:flex-row items-stretch animate-scale-in" onclick="event.stopPropagation()">
+            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 p-2 bg-white border-2 border-black hover:bg-red-500 hover:text-white rounded-full transition-colors"><i data-lucide="x" class="w-6 h-6 stroke-[3]"></i></button>
             
-            <!-- 關閉按鈕 -->
-            <button onclick="closeModal()" class="absolute top-4 right-4 z-10 p-2 bg-white border-2 border-black hover:bg-red-500 hover:text-white rounded-full transition-colors">
-                <i data-lucide="x" class="w-6 h-6 stroke-[3]"></i>
-            </button>
-
-            <!-- 左側：資訊與預覽圖 -->
-            <div class="w-full md:w-1/2 p-8 flex flex-col justify-between bg-yellow-50 border-b-4 md:border-b-0 md:border-r-4 border-black relative overflow-hidden">
+            <!-- 左側資訊 -->
+            <div class="w-full md:w-1/2 p-8 flex flex-col justify-between bg-yellow-50 border-b-4 md:border-b-0 md:border-r-4 border-black relative">
                 <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: linear-gradient(45deg, #000 1px, transparent 1px); background-size: 20px 20px;"></div>
-                
                 <div class="flex flex-col items-center justify-center flex-grow z-10">
                     <div class="transform scale-100 mb-8 mt-4 w-full h-48 flex items-center justify-center">
-                        <!-- 預覽圖容器 -->
-                        <div id="modal-image-container" class="w-full h-full flex items-center justify-center">
-                            <!-- 圖片將由 JS 插入 -->
-                        </div>
+                        <div id="modal-image-container" class="w-full h-full flex items-center justify-center"></div>
                     </div>
                     <div class="text-center space-y-3 w-full mb-8">
                         <h2 id="modal-title" class="text-3xl font-black text-black"></h2>
                         <div id="modal-subtitle" class="inline-block bg-white border-2 border-black px-4 py-1 rounded-full font-bold"></div>
                     </div>
                 </div>
-
-                <a id="modal-link-btn" href="#" target="_blank" rel="noopener noreferrer" 
-                   class="mt-auto flex items-center justify-center w-full py-4 bg-yellow-400 hover:bg-yellow-300 text-black font-black text-lg border-2 border-black rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-0 active:translate-y-0 active:shadow-none z-10">
-                    <i data-lucide="external-link" class="w-6 h-6 mr-2 stroke-[3]"></i>
-                    前往資源網站
+                <a id="modal-link-btn" href="#" target="_blank" rel="noopener noreferrer" class="mt-auto flex items-center justify-center w-full py-4 bg-yellow-400 hover:bg-yellow-300 text-black font-black text-lg border-2 border-black rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all active:translate-x-0 active:translate-y-0 active:shadow-none z-10">
+                    <i data-lucide="external-link" class="w-6 h-6 mr-2 stroke-[3]"></i>前往資源網站
                 </a>
             </div>
 
-            <!-- 右側：QR Code -->
+            <!-- 右側 QR Code -->
             <div class="w-full md:w-1/2 p-8 flex flex-col justify-between bg-white gap-6">
                 <div class="flex flex-col items-center justify-center flex-grow">
-                    <div class="group bg-white p-4 border-4 border-black rounded-xl relative cursor-zoom-in hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all hover:-translate-y-1 hover:-translate-x-1"
-                         onclick="toggleFullQr()">
-                        <div class="absolute top-2 left-2 w-1.5 h-1.5 bg-black rounded-full"></div>
-                        <div class="absolute top-2 right-2 w-1.5 h-1.5 bg-black rounded-full"></div>
-                        <div class="absolute bottom-2 left-2 w-1.5 h-1.5 bg-black rounded-full"></div>
-                        <div class="absolute bottom-2 right-2 w-1.5 h-1.5 bg-black rounded-full"></div>
-                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/5 z-10">
-                            <i data-lucide="zoom-in" class="w-12 h-12 text-black drop-shadow-lg"></i>
-                        </div>
+                    <div class="group bg-white p-4 border-4 border-black rounded-xl relative cursor-zoom-in hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all hover:-translate-y-1 hover:-translate-x-1" onclick="toggleFullQr()">
+                        <div class="absolute top-2 left-2 w-1.5 h-1.5 bg-black rounded-full"></div><div class="absolute top-2 right-2 w-1.5 h-1.5 bg-black rounded-full"></div><div class="absolute bottom-2 left-2 w-1.5 h-1.5 bg-black rounded-full"></div><div class="absolute bottom-2 right-2 w-1.5 h-1.5 bg-black rounded-full"></div>
+                        <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/5 z-10"><i data-lucide="zoom-in" class="w-12 h-12 text-black drop-shadow-lg"></i></div>
                         <img id="modal-qr-img" src="" alt="QR Code" class="w-64 h-64 object-contain">
                         <p class="text-center font-bold mt-2 text-gray-500 group-hover:text-black transition-colors">點擊放大</p>
                     </div>
@@ -287,12 +159,10 @@
         </div>
     </div>
 
-    <!-- 全螢幕 QR Code 視窗 -->
+    <!-- Full Screen QR -->
     <div id="full-qr-overlay" class="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/90 backdrop-blur-md hidden animate-fade-in" onclick="toggleFullQr()">
         <div class="relative bg-white p-6 rounded-2xl border-4 border-yellow-400 animate-scale-in max-w-[90vw] max-h-[90vh]" onclick="event.stopPropagation()">
-            <button onclick="toggleFullQr()" class="absolute -top-6 -right-6 z-10 p-2 bg-white border-2 border-black hover:bg-red-500 hover:text-white rounded-full transition-colors shadow-lg">
-                <i data-lucide="x" class="w-8 h-8 stroke-[3]"></i>
-            </button>
+            <button onclick="toggleFullQr()" class="absolute -top-6 -right-6 z-10 p-2 bg-white border-2 border-black hover:bg-red-500 hover:text-white rounded-full transition-colors shadow-lg"><i data-lucide="x" class="w-8 h-8 stroke-[3]"></i></button>
             <div class="flex flex-col items-center">
                 <h3 id="full-qr-title" class="text-2xl font-black mb-4"></h3>
                 <img id="full-qr-img" src="" alt="QR Code Full" class="w-full h-auto max-w-md max-h-[60vh] object-contain border-4 border-black rounded-lg">
@@ -301,91 +171,43 @@
         </div>
     </div>
 
-    <!-- ================= JavaScript 邏輯 ================= -->
     <script>
-        // ==========================================
-        // ★★★ 請在此填入您的 Apps Script 網址 ★★★
-        // ==========================================
-        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwdpD61m1E9wGnvowKs-0slpgM0GETLBgsQ3xn_yC3MToGS0ddsNL4Qk4fuxFhVeIzUvg/exec"; 
-
-        // 預設資料 (若沒有填寫 URL 或載入失敗時顯示)
-        let resources = [
-            { id: 1, grade: "5下", title: "範例資源 1", subTitle: "請填入 Apps Script 網址", url: "https://www.geogebra.org/", image: "img/demo1.png" },
-            { id: 2, grade: "5下", title: "範例資源 2", subTitle: "預設顯示資料", url: "https://www.geogebra.org/", image: "img/demo2.png" }
-        ];
-
+        // 資料注入點 (這個標記會被 Apps Script 替換)
+        const resources = [{"id":1,"grade":"3上","title":"三角形","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":2,"grade":"3上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":3,"grade":"3上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":4,"grade":"3上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":5,"grade":"3上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":6,"grade":"3上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":7,"grade":"3上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":8,"grade":"3上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":9,"grade":"3上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":10,"grade":"3下","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":11,"grade":"3下","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":12,"grade":"3下","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":13,"grade":"4上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":14,"grade":"4上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":15,"grade":"4上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":16,"grade":"4下","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":17,"grade":"4下","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":18,"grade":"4下","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":19,"grade":"5上","title":"三角形內角和","subTitle":"配合課本CH3-P37 例題3","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P037GGB.html","image":"img/preview_01.png"},{"id":20,"grade":"5上","title":"複合三角形內角和","subTitle":"配合課本CH3-P38 例題4","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P038GGB01.html","image":"img/preview_01.png"},{"id":21,"grade":"5上","title":"複合三角形內角和","subTitle":"配合課本CH3-P38 練習","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P038GGB02.html","image":"img/preview_01.png"},{"id":22,"grade":"5上","title":"四邊形內角和","subTitle":"配合課本CH3-P41 例題3","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P041GGB01.html","image":"img/preview_01.png"},{"id":23,"grade":"5上","title":"正三角形剪一刀","subTitle":"配合課本CH3-P41 例題3-2","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P041GGB02.html","image":"img/preview_01.png"},{"id":24,"grade":"5上","title":"等底等高平行四邊形面積","subTitle":"配合課本CH8-P130 例題1","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P130GGB01.html","image":"img/preview_01.png"},{"id":25,"grade":"5上","title":"等底等高三角形的面積","subTitle":"配合課本CH8-P130 例題2","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P130GGB02.html","image":"img/preview_01.png"},{"id":26,"grade":"5上","title":"三角形等底高變化","subTitle":"配合課本CH8-P131 例題3","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P131GGB01.html","image":"img/preview_01.png"},{"id":27,"grade":"5上","title":"三角形等高底變化","subTitle":"配合課本CH8-P131 例題4","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P131GGB02.html","image":"img/preview_01.png"},{"id":28,"grade":"5上","title":"複合圖形面積","subTitle":"配合課本CH8-P132 例題5","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P132GGB01.html","image":"img/preview_01.png"},{"id":29,"grade":"5上","title":"複合圖形面積","subTitle":"配合課本CH8-P132 例題6","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P132GGB02.html","image":"img/preview_01.png"},{"id":30,"grade":"5上","title":"複合圖形面積","subTitle":"配合課本CH8-P132 練習","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P132GGB03.html","image":"img/preview_01.png"},{"id":31,"grade":"5上","title":"複合圖形走道面積","subTitle":"配合課本CH8-P133 例題7","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P133GGB01.html","image":"img/preview_01.png"},{"id":32,"grade":"5上","title":"複合圖形走道面積","subTitle":"配合課本CH8-P133 練習","url":"https://website.hle.com.tw/ema/Ebook_GGB/51/P133GGB02.html","image":"img/preview_01.png"},{"id":33,"grade":"5下","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":34,"grade":"5下","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":35,"grade":"5下","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":36,"grade":"6上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":37,"grade":"6上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":38,"grade":"6上","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":39,"grade":"6下","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":40,"grade":"6下","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"},{"id":41,"grade":"6下","title":"長方體與正方體","subTitle":"配合課本ch2-p29 例題3","url":"https://www.google.com/","image":"img/preview_01.png"}];
+        
         const GRADES = ["3上", "3下", "4上", "4下", "5上", "5下", "6上", "6下"];
-        let selectedGrade = "3上";
+        let selectedGrade = "3上"; 
         let searchTerm = "";
         let currentModalResource = null;
 
-        // 初始化
         document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('current-year').textContent = new Date().getFullYear();
             renderGrades();
-            
-            if (GOOGLE_SCRIPT_URL) {
-                fetchData();
-            } else {
-                renderResources();
-            }
-
-            // 初始化 Lucide Icons
+            renderResources();
             lucide.createIcons();
 
-            // 綁定搜尋事件
             document.getElementById('search-input').addEventListener('input', (e) => {
                 searchTerm = e.target.value;
                 handleSearch();
             });
 
-            // 綁定清除搜尋
             document.getElementById('clear-search').addEventListener('click', () => {
                 searchTerm = "";
                 document.getElementById('search-input').value = "";
                 handleSearch();
             });
 
-            // 綁定捲動事件
             window.addEventListener('scroll', handleScroll);
             document.getElementById('scroll-to-top').addEventListener('click', () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         });
 
-        // 抓取資料
-        async function fetchData() {
-            const spinner = document.getElementById('loading-spinner');
-            const grid = document.getElementById('resources-grid');
-            
-            spinner.classList.remove('hidden');
-            grid.innerHTML = ''; // 清空目前顯示
-
-            try {
-                const response = await fetch(GOOGLE_SCRIPT_URL);
-                const data = await response.json();
-                // 處理 ID
-                resources = data.map((item, index) => ({
-                    ...item,
-                    id: item.id || `sheet-${index}`
-                }));
-            } catch (error) {
-                console.error("Error fetching data:", error);
-                // 失敗時保持使用預設資料或顯示錯誤
-            } finally {
-                spinner.classList.add('hidden');
-                renderResources();
-            }
-        }
-
-        // 渲染年級按鈕
         function renderGrades() {
             const container = document.getElementById('grade-buttons');
             container.innerHTML = '';
-
             GRADES.forEach(grade => {
                 const btn = document.createElement('button');
-                // 樣式邏輯
                 const isActive = (selectedGrade === grade && !searchTerm);
                 let classes = "px-4 py-2 rounded-lg border-2 font-bold text-xl transition-all duration-150 relative overflow-hidden ";
                 classes += isActive 
@@ -396,16 +218,15 @@
                 btn.textContent = grade;
                 btn.onclick = () => {
                     selectedGrade = grade;
-                    searchTerm = ""; // 切換年級時清空搜尋
+                    searchTerm = ""; 
                     document.getElementById('search-input').value = "";
-                    handleSearch(); // 更新顯示
-                    renderGrades(); // 重新渲染按鈕狀態
+                    handleSearch(); 
+                    renderGrades();
                 };
                 container.appendChild(btn);
             });
         }
 
-        // 處理搜尋與篩選邏輯
         function handleSearch() {
             const clearBtn = document.getElementById('clear-search');
             const hint = document.getElementById('search-result-hint');
@@ -415,7 +236,6 @@
                 clearBtn.classList.remove('hidden');
                 hint.classList.remove('hidden');
                 termDisplay.textContent = searchTerm;
-                // 當有搜尋時，重繪年級按鈕以移除選中狀態
                 renderGrades();
             } else {
                 clearBtn.classList.add('hidden');
@@ -425,13 +245,11 @@
             renderResources();
         }
 
-        // 渲染資源卡片
         function renderResources() {
             const container = document.getElementById('resources-grid');
             const noData = document.getElementById('no-data-hint');
             container.innerHTML = '';
 
-            // 篩選
             const filtered = resources.filter(r => {
                 if (searchTerm.trim() !== "") {
                     const lowerTerm = searchTerm.toLowerCase();
@@ -452,23 +270,20 @@
                     const card = createCard(res);
                     container.appendChild(card);
                 });
-                // 重新初始化新加入的 icons
                 lucide.createIcons();
             }
         }
 
-        // 建立單張卡片 HTML
         function createCard(res) {
             const div = document.createElement('div');
             div.className = "group bg-white rounded-2xl border-2 border-black cursor-pointer overflow-hidden relative hover:shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] transition-all duration-200 hover:-translate-y-1 hover:-translate-x-1";
             div.onclick = () => openModal(res);
 
-            // 處理圖片顯示與 Fallback
-            // 如果有圖片網址，顯示圖片；否則顯示預設 icon
             let imageHtml = '';
+            // 圖片處理 (確保 onerror 不會無窮迴圈)
+            // 已移除卡片背景點點裝飾
             if (res.image) {
-                // 使用 onerror 處理圖片載入失敗的情況
-                imageHtml = `<img src="${res.image}" alt="${res.title}" class="w-full h-full object-contain relative z-10" onerror="this.onerror=null; this.parentNode.innerHTML='<div class=\\'flex flex-col items-center justify-center text-gray-400\\'><i data-lucide=\\'image\\' class=\\'w-12 h-12 mb-2 opacity-50\\'></i><span class=\\'text-xs font-bold\\'>尚無預覽圖</span></div>'; lucide.createIcons();">`;
+                imageHtml = `<img src="${res.image}" alt="${res.title}" class="w-full h-full object-contain relative z-10" onerror="this.parentNode.innerHTML='<div class=\\'flex flex-col items-center justify-center text-gray-400\\'><i data-lucide=\\'image\\' class=\\'w-12 h-12 mb-2 opacity-50\\'></i><span class=\\'text-xs font-bold\\'>尚無預覽圖</span></div>'; lucide.createIcons();">`;
             } else {
                 imageHtml = `
                     <div class="flex flex-col items-center justify-center text-gray-400 relative z-10">
@@ -478,7 +293,6 @@
                 `;
             }
 
-            // 標籤 (搜尋模式時顯示年級)
             const gradeBadge = searchTerm ? `<span class="inline-block mb-2 text-xs font-black bg-black text-white px-2 py-0.5 rounded">${res.grade}</span>` : '';
 
             div.innerHTML = `
@@ -499,7 +313,6 @@
             return div;
         }
 
-        // ================= Modal 相關 =================
         function openModal(res) {
             currentModalResource = res;
             const modal = document.getElementById('modal-overlay');
@@ -512,13 +325,12 @@
             const fullQrImg = document.getElementById('full-qr-img');
             const fullQrTitle = document.getElementById('full-qr-title');
 
-            // 填入內容
             title.textContent = res.title;
             subTitle.textContent = res.subTitle;
             linkBtn.href = res.url;
             urlText.textContent = res.url;
 
-            // 處理 Modal 圖片
+            // Modal 圖片處理
             if (res.image) {
                 imgContainer.innerHTML = `<img src="${res.image}" class="max-w-full max-h-full object-contain drop-shadow-md border-2 border-black rounded-lg bg-white" onerror="this.style.display='none'; this.nextElementSibling.classList.remove('hidden');">
                                           <div class="hidden flex flex-col items-center justify-center text-gray-400"><i data-lucide="image" class="w-16 h-16 mb-2"></i><span>圖片載入失敗</span></div>`;
@@ -526,8 +338,12 @@
                 imgContainer.innerHTML = `<div class="flex flex-col items-center justify-center text-gray-400"><i data-lucide="image" class="w-16 h-16 mb-2 opacity-50"></i><span class="font-bold">尚無預覽圖</span></div>`;
             }
 
-            // QR Code
-            const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(res.url)}`;
+            // QR Code generation
+            const qrBase = "https://api.qrserver.com/v1/create-qr-code/";
+            const qrSize = "?size=400x400";
+            const qrData = "&data=" + encodeURIComponent(res.url);
+            const qrUrl = qrBase + qrSize + qrData;
+            
             qrImg.src = qrUrl;
             fullQrImg.src = qrUrl;
             fullQrTitle.textContent = res.title;
@@ -559,7 +375,6 @@
             });
         }
 
-        // ================= Scroll To Top =================
         function handleScroll() {
             const btn = document.getElementById('scroll-to-top');
             if (window.scrollY > 300) {
@@ -568,7 +383,6 @@
                 btn.classList.add('hidden');
             }
         }
-
     </script>
 </body>
 </html>
